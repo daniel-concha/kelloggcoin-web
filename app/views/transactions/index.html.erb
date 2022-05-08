@@ -32,22 +32,25 @@ Balance for Anthony: 1456 KC
 Balance for Krystina: 3516 KC 
 -->
 
-<ul>
+
 <% transactions = Transaction.all%>
 <% users = User.all%>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Balance</th>
+    </tr>
 
 <% for user in users%>
-    <li>
+    <tr>
         <% balance = 0 %>
         <% balance = balance + Transaction.where({"to_user_id" => user["id"]}).sum("amount") %>
         <% balance = balance - Transaction.where({"from_user_id" => user["id"]}).sum("amount") %>
-        Balance for <%=user["name"]%>: <%= balance%> KC
-    </li>
+        <td><%=user["name"]%></td> 
+        <td><%= balance%> KC</td>
+    </tr>
+    
 <%end%>
+  
 
-
-
-
-
-   
-</ul>
+</table>
