@@ -6,13 +6,13 @@
 <% transactions = Transaction.all%>
 <% for transaction in transactions%>
     <li>
-        <% from_user = transaction["from_user_id"]%>
-        <% to_user = transaction["to_user_id"]%>
         <% amount = transaction["amount"]%>
-            <% if from_user%>
-            <%=amount%> KC from <%=from_user%> to <%= to_user%>
+        <% from_name = User.find_by({"id" => transaction["from_user_id"]})%>
+        <% to_name = User.find_by({"id" => transaction["to_user_id"]})%>
+            <% if from_name%>
+            <%=amount%> KC from <%=from_name["name"]%> to <%= to_name["name"]%>
             <% else %>
-             Initial coin offering: <%=amount%> to <%=to_user%>
+             Initial coin offering: <%=amount%> to <%=to_name["name"]%>
             <%end%>
     </li>
 <% end%>
